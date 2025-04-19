@@ -10,6 +10,7 @@ public:
     void connect();
     bool isConnected();
     String getLocalIP();
+    void updateSignalStrength();
 
 private:
     const char* _ssid;
