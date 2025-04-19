@@ -32,7 +32,7 @@ Before building the project, you need to set up your configuration:
 
 ## Hardware Setup
 
-![Diagram]([Diagram.png](./IoT-Smart-Jar-Circuit-Diagram_0.png) "Diagram")
+![Diagram](./IoT-Smart-Jar-Circuit-Diagram_0.png)
 <sub><sup>From https://circuitdigest.com/microcontroller-projects/iot-based-smart-jar-using-nodemcu-esp8266-and-ultrasonic-sensor<sup>
 
 ### Components
