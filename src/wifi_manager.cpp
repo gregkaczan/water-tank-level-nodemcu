@@ -33,9 +33,13 @@ String WiFiManager::getLocalIP() {
     return WiFi.localIP().toString();
 }
 
+int WiFiManager::getRSSI() {
+    return WiFi.RSSI();
+}
+
 void WiFiManager::updateSignalStrength() {
     if (isConnected()) {
-        int rssi = WiFi.RSSI();
+        int rssi = getRSSI();
         NeoPixelManager::updateWiFiSignal(rssi);
         NeoPixelManager::blink();
     }

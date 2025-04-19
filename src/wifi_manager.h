@@ -11,6 +11,7 @@ public:
     bool isConnected();
     String getLocalIP();
     void updateSignalStrength();
+    int getRSSI();
 
 private:
     const char* _ssid;

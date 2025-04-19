@@ -34,23 +34,31 @@ void loop() {
     }
     mqttManager.loop();
 
-    // Send message every 5 seconds
-    static unsigned long lastMsg = 0;
+    // Send message every MQTT_WATER_LEVEL_INTERVAL
+    static unsigned long lastWaterLevelMsg = 0;
     static unsigned long lastSignalCheck = 0;
     
-    if (millis() - lastMsg > 5000) {
-        lastMsg = millis();
+    if (millis() - lastWaterLevelMsg > MQTT_WATER_LEVEL_INTERVAL) {
+        lastWaterLevelMsg = millis();
         int percentage = sonar.getWaterLevelPercentage();
         int smoothedPercentage = medianFilter.filter(percentage);
         Logger::logWaterLevel(smoothedPercentage);
         char percentageStr[8];
         snprintf(percentageStr, sizeof(percentageStr), "%d", smoothedPercentage);
-        mqttManager.publish("my/topic", percentageStr);
+        mqttManager.publish(MQTT_WATER_LEVEL_TOPIC, percentageStr);
     }
     
-    // Check WiFi signal strength every 10 seconds
-    if (millis() - lastSignalCheck > 2000) {
+    // Check WiFi signal strength every MQTT_SIGNAL_CHECK_INTERVAL
+    if (millis() - lastSignalCheck > MQTT_SIGNAL_CHECK_INTERVAL) {
         lastSignalCheck = millis();
         wifiManager.updateSignalStrength();
+        
+        // Publish signal strength
+        if (wifiManager.isConnected()) {
+            int rssi = wifiManager.getRSSI();
+            char rssiStr[8];
+            snprintf(rssiStr, sizeof(rssiStr), "%d", rssi);
+            mqttManager.publish(MQTT_SIGNAL_STRENGTH_TOPIC, rssiStr);
+        }
     }
 }
