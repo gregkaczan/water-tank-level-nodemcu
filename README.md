@@ -8,6 +8,7 @@ This project monitors water tank levels using an ultrasonic sensor and publishes
 - ESP8266-based board (tested on NodeMCU v3)
 - HC-SR04 ultrasonic sensor
 - LED (built-in or external)
+- [Linux Driver for CH340G](./CH341SER-master.zip)
 
 ## Configuration
 
@@ -40,6 +41,11 @@ Before building the project, you need to set up your configuration:
 - HC-SR04 ultrasonic sensor
 - LED (optional, for status indication)
 
+### Enclosure
+
+See [Onshape project](https://cad.onshape.com/documents/b56ba12b5a4b9b8846e9f711/w/87c9c727fe78784594a3514e/e/ff66420fdce52c3a1dca7e84)
+
+
 ### Connections
 1. Ultrasonic Sensor (HC-SR04):
    - VU → 5V
@@ -50,6 +56,9 @@ Before building the project, you need to set up your configuration:
 2. LED (if using external):
    - Anode → GPIO2 (D4) with 220Ω resistor
    - Cathode → GND
+
+Reference pinout
+![Pinout](./nodemcu-pinout.png)
 
 ## Functionality
 
