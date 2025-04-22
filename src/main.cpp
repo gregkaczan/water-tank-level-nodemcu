@@ -40,12 +40,12 @@ void loop() {
     
     if (millis() - lastWaterLevelMsg > MQTT_WATER_LEVEL_INTERVAL) {
         lastWaterLevelMsg = millis();
-        int percentage = sonar.getWaterLevelPercentage();
-        int smoothedPercentage = medianFilter.filter(percentage);
-        Logger::logWaterLevel(smoothedPercentage);
-        char percentageStr[8];
-        snprintf(percentageStr, sizeof(percentageStr), "%d", smoothedPercentage);
-        mqttManager.publish(MQTT_WATER_LEVEL_TOPIC, percentageStr);
+        float distance = sonar.measureDistance();
+        int smoothed = medianFilter.filter(distance);
+        Logger::logWaterLevel(smoothed);
+        char distanceStr[8];
+        snprintf(distanceStr, sizeof(distanceStr), "%d", smoothed);
+        mqttManager.publish(MQTT_WATER_LEVEL_TOPIC, distanceStr);
     }
     
     // Check WiFi signal strength every MQTT_SIGNAL_CHECK_INTERVAL
